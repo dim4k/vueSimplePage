@@ -6,7 +6,7 @@ new Vue({
     // Here we can register any values or collections that hold data
     // for the application
     data: {
-        location: { text: '',name:'',adress:'', description: '', details: '' },
+        location: { text: '',name:'',address:'', description: '', details: '' },
         locations: [],
         event: { name: '', description: '', date: '' },
         events: []
@@ -26,19 +26,19 @@ new Vue({
                 {
                     id: 1,
                     name: 'NANTES MARTYRS',
-                    description: '16 boulevard des Martyrs Nantais de la Résistance (station TOTAL) 44000 NANTES',
+                    address: '16 boulevard des Martyrs Nantais de la Résistance (station TOTAL) 44000 NANTES',
                     details: '2015-09-10'
                 },
                 {
                     id: 2,
                     name: 'CARQUEFOU ',
-                    description: '24 ROUTE DE PARIS 44470 CARQUEFOU',
+                    address: '24 ROUTE DE PARIS 44470 CARQUEFOU',
                     date: '2015-10-02'
                 },
                 {
                     id: 3,
                     name: 'SAINT-HERBLAIN ',
-                    description: '331 route de Vannes 44800 ST-HERBLAIN',
+                    address: '331 route de Vannes 44800 ST-HERBLAIN',
                     date: '2016-03-11'
                 }
             ];
