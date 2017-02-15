@@ -9,7 +9,8 @@ new Vue({
         location: { text: '',name:'',address:'', description: '', details: '' },
         locations: [],
         event: { name: '', description: '', date: '' },
-        events: []
+        events: [],
+        posts:[]
     },
 
     // Anything within the ready function will run when the application loads
@@ -33,23 +34,30 @@ new Vue({
                     id: 2,
                     name: 'CARQUEFOU ',
                     address: '24 ROUTE DE PARIS 44470 CARQUEFOU',
-                    date: '2015-10-02'
+                    details: '2015-10-02'
                 },
                 {
                     id: 3,
                     name: 'SAINT-HERBLAIN ',
                     address: '331 route de Vannes 44800 ST-HERBLAIN',
-                    date: '2016-03-11'
+                    details: '2016-03-11'
                 }
             ];
 
             // Set the collection of events
             this.locations = locations;
+        },
 
-            // or push them on separately
-            // for (var i in events) {
-            //   this.events.push(events[i]);
-            // }
+        //ajax call test
+        getPosts: function() {
+            // ajax get County list
+            this.$http.get('https://jsonplaceholder.typicode.com/posts').then(
+                function (response) {
+                    this.posts = response.body;
+                    console.log(response.body);
+                }, function (error) {
+                    // handle error
+                });
         },
 
         // Adds an event to the existing events array
