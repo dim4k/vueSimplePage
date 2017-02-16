@@ -12,7 +12,8 @@ new Vue({
         posts:[],
         searchSeen: true,
         btnClearSeen: false,
-        locationsSeen: false,
+        locationsListingSeen: false,
+        locationItinerary : false,
         detailsLocationId: false
     },
 
@@ -29,8 +30,8 @@ new Vue({
             var locations = [
                 {
                     id: 1,
-                    name: 'NANTES MARTYRS',
-                    address: '16 boulevard des Martyrs Nantais de la Résistance (station TOTAL) 44000 NANTES',
+                    name: 'Mairie Centrale de Nantes',
+                    address: '29 Rue de Strasbourg, 44000 Nantes',
                     details: {
                         schedule : 'Lundi 10h 17h',
                         text: "lorem ipsum",
@@ -39,8 +40,8 @@ new Vue({
                 },
                 {
                     id: 2,
-                    name: 'CARQUEFOU ',
-                    address: '24 ROUTE DE PARIS 44470 CARQUEFOU',
+                    name: 'Mairie annexe Nantes Sud',
+                    address: '2bis Route de Clisson',
                     details: {
                         schedule : 'Lundi 10h 17h',
                         text: "lorem ipsum",
@@ -49,8 +50,8 @@ new Vue({
                 },
                 {
                     id: 3,
-                    name: 'SAINT-HERBLAIN ',
-                    address: '331 route de Vannes 44800 ST-HERBLAIN',
+                    name: 'Hotel de ville',
+                    address: '2 Rue de l\'Hôtel de Ville',
                     details: {
                         schedule : 'Lundi 10h 17h',
                         text: "lorem ipsum",
@@ -78,7 +79,8 @@ new Vue({
             this.btnClearSeen = true,
             this.searchSeen = false,
             this.detailsLocationId = false;
-            this.locationsSeen = true;
+            this.locationsListingSeen = true;
+            this.locationItinerary = false;
             this.fetchLocations();
         },
 
@@ -87,10 +89,20 @@ new Vue({
             this.searchSeen = true,
             this.detailsLocationId = false;
             this.btnClearSeen = false;
+            this.locationItinerary = false;
         },
 
         getDetailsLocation: function(index) {
             this.detailsLocationId = index
+        },
+
+        goToLocation: function(locationItinerary) {
+            this.btnClearSeen = true,
+            this.searchSeen = false,
+            this.detailsLocationId = false;
+            this.locationsListingSeen = false;
+            this.locationItinerarySeen = true;
+            this.locationItinerary = locationItinerary;
         },
     }
 });
