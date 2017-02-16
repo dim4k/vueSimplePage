@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html xmlns:v-on="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8">
     <title>FindAPlace</title>
@@ -47,7 +47,7 @@
                             <input class="form-control" placeholder="Enter a zip code or a city">
                         </div>
                         <div class="col-md-4">
-                            <button class='btn btn-conf btn-orange' v-on:click="searchLocations">Find !</button>
+                            <button class='btn btn-conf btn-orange' v-on:click="searchLocations"><span class="glyphicon glyphicon-search"></span> Find !</button>
                         </div>
                     </div>
                 </div>
@@ -128,15 +128,10 @@
                                 Actions
                             </div>
                             <div class="panel-body">
-                                <ul>
-                                    <li>
-                                        <button class="btn btn btn"><span class="glyphicon glyphicon-phone-alt"></span> Phone to</button>
-                                    </li>
-                                    <br />
-                                    <li>
-                                        <button class="btn btn btn-success"><span class="glyphicon glyphicon-arrow-right"></span> Make an appointment</button>
-                                    </li>
-                                </ul>
+                                <div class="btn-group-vertical text-center col-sm-12" role="group">
+                                    <button class="btn btn btn-info"><span class="glyphicon glyphicon-phone-alt"></span> Phone to {{ locationItinerary.name }}</button>
+                                    <button class="btn btn btn-info"><span class="glyphicon glyphicon-book"></span> Make an appointment</button>
+                                </div>
                             </div>
                         </div>
                     </div>
