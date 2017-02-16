@@ -83,7 +83,7 @@ new Vue({
             this.detailsLocationId = false;
             this.locationsListingSeen = true;
             this.locationItinerary = false;
-            this.detailsLocationId = 151651;
+            this.detailsLocationId = -1;
             this.fetchLocations();
         },
 
