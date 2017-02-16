@@ -68,26 +68,29 @@
 
                         <p class="list-group-item-text" v-if="location.description">{{ location.description }}</p>
 
-                        <button class="btn btn-sm btn-info" v-on:click="getDetailsLocation(index)">Détails</button>
-
-                        <button class="btn btn-sm btn-success" v-on:click="goToLocation(location)"><span class="glyphicon glyphicon-arrow-right"></span> Go !</button>
                         <div class="list-group  groupDetails">
-                            <transition name="fade">
-                            <div class="list-group-item" v-if="detailsLocationId == index">
-                                <ul>
-                                    <li>
-                                        <span class="glyphicon glyphicon-calendar"></span> {{ location.details.schedule }}
-                                    </li>
-                                    <li>
-                                        <span class="glyphicon glyphicon-phone-alt"></span> {{ location.details.phone }}
-                                    </li>
-                                    <li>
-                                        <span class="glyphicon glyphicon-list"></span> {{ location.details.text }}
-                                    </li>
-                                </ul>
-                            </div>
-                            </transition>
+                            <!-- <transition name="fade"> -->
+                                <div class="list-group-item" v-if="detailsLocationId == index">
+                                    <ul>
+                                        <li>
+                                            <span class="glyphicon glyphicon-calendar"></span> {{ location.details.schedule }}
+                                        </li>
+                                        <li>
+                                            <span class="glyphicon glyphicon-phone-alt"></span> {{ location.details.phone }}
+                                        </li>
+                                        <li>
+                                            <span class="glyphicon glyphicon-list"></span> {{ location.details.text }}
+                                        </li>
+                                    </ul>
+                                </div>
+                            <!-- </transition> -->
                         </div>
+
+                        <div class="btn-group" role="group">
+                            <button class="btn btn-sm btn-info" v-on:click="getDetailsLocation(index)"><span class="glyphicon glyphicon-list"></span> Détails</button>
+                            <button class="btn btn-sm btn-success" v-on:click="goToLocation(location)"><span class="glyphicon glyphicon-arrow-right"></span> Go !</button>
+                        </div>
+
                     </div>
                 </div>
             </div>
