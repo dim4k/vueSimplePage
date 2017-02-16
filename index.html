@@ -38,99 +38,119 @@
     <div class="container">
         <div class="row">
 
-        <!-- SEARCH PART -->
-        <div class="row" v-if="searchSeen">
-            <div class="col-md-8 col-md-offset-2 centered">
-                <h1>Find a place</h1>
-                <div class="mtb">
-                    <div class="form-group col-md-8">
-                        <input class="form-control" placeholder="Enter a zip code or a city">
-                    </div>
-                    <div class="col-md-4">
-                        <button class='btn btn-conf btn-orange' v-on:click="searchLocations">Find !</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- LOCATIONS LISTING AND DETAILS -->
-        <div class="col-sm-12" v-cloak v-if="locationsListingSeen">
-            <div class="list-group">
-                <div class="list-group-item" v-for="(location, index) in locations">
-                    <h4 class="list-group-item-heading">
-                        <strong>{{ location.name }}</strong>
-                    </h4>
-
-                    <h5>
-                        <i class="glyphicon glyphicon-home" v-if="location.address"></i>
-                        {{ location.address }}
-                    </h5>
-
-                    <p class="list-group-item-text" v-if="location.description">{{ location.description }}</p>
-
-                    <button class="btn btn-sm btn-info" v-on:click="getDetailsLocation(index)">Détails</button>
-
-                    <button class="btn btn-sm btn-success" v-on:click="goToLocation(location)"><span class="glyphicon glyphicon-arrow-right"></span> Go !</button>
-                    <div class="list-group">
-                        <div class="list-group-item" v-if="detailsLocationId == index">
-                            <ul>
-                                <li>
-                                    <span class="glyphicon glyphicon-calendar"></span> {{ location.details.schedule }}
-                                </li>
-                                <li>
-                                    <span class="glyphicon glyphicon-phone-alt"></span> {{ location.details.phone }}
-                                </li>
-                                <li>
-                                    <span class="glyphicon glyphicon-list"></span> {{ location.details.text }}
-                                </li>
-                            </ul>
+            <!-- SEARCH PART -->
+            <div class="row" v-if="searchSeen">
+                <div class="col-md-8 col-md-offset-2 centered">
+                    <h1>Find a place</h1>
+                    <div class="mtb">
+                        <div class="form-group col-md-8">
+                            <input class="form-control" placeholder="Enter a zip code or a city">
+                        </div>
+                        <div class="col-md-4">
+                            <button class='btn btn-conf btn-orange' v-on:click="searchLocations">Find !</button>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- LOCATION ITINERARY -->
-        <div class="col-sm-12" v-cloak v-if="locationItinerary">
-            <div class="col-md-8">
-                <iframe style = "width:100%; box-shadow:0 5px 5px #ccc" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2709.889264978834!2d-1.5559606843829143!3d47.218748979161035!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4805ef163d823c71%3A0x6a499fe2fe533ba1!2sMairie+Centrale+de+Nantes!5e0!3m2!1sfr!2sfr!4v1487255456433" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
-            </div>
-            <div class="col-md-4">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        Détails
-                    </div>
-                    <div class="panel-body">
-                        <ul>
-                            <li>
-                                <strong>{{ locationItinerary.name }}</strong>
-                            </li>
-                            <li>
-                                {{ locationItinerary.address }}
-                            </li>
-                            <li>
-                                <span class="glyphicon glyphicon-calendar"></span> {{ locationItinerary.details.schedule }}
-                            </li>
-                            <li>
-                                <span class="glyphicon glyphicon-phone-alt"></span> {{ locationItinerary.details.phone }}
-                            </li>
-                            <li>
-                                <span class="glyphicon glyphicon-list"></span> {{ locationItinerary.details.text }}
-                            </li>
-                        </ul>
+            <!-- LOCATIONS LISTING AND DETAILS -->
+            <div class="col-sm-12" v-cloak v-if="locationsListingSeen">
+                <div class="list-group">
+                    <div class="list-group-item" v-for="(location, index) in locations">
+                        <h4 class="list-group-item-heading">
+                            <strong>{{ location.name }}</strong>
+                        </h4>
+
+                        <h5>
+                            <i class="glyphicon glyphicon-home" v-if="location.address"></i>
+                            {{ location.address }}
+                        </h5>
+
+                        <p class="list-group-item-text" v-if="location.description">{{ location.description }}</p>
+
+                        <button class="btn btn-sm btn-info" v-on:click="getDetailsLocation(index)">Détails</button>
+
+                        <button class="btn btn-sm btn-success" v-on:click="goToLocation(location)"><span class="glyphicon glyphicon-arrow-right"></span> Go !</button>
+                        <div class="list-group  groupDetails">
+                            <transition name="fade">
+                            <div class="list-group-item" v-if="detailsLocationId == index">
+                                <ul>
+                                    <li>
+                                        <span class="glyphicon glyphicon-calendar"></span> {{ location.details.schedule }}
+                                    </li>
+                                    <li>
+                                        <span class="glyphicon glyphicon-phone-alt"></span> {{ location.details.phone }}
+                                    </li>
+                                    <li>
+                                        <span class="glyphicon glyphicon-list"></span> {{ location.details.text }}
+                                    </li>
+                                </ul>
+                            </div>
+                            </transition>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- CLEAR RESTART SEARCH -->
-        <div class="row">
-            <div class="col-sm-12 newSearch">
-                <div class="text-center">
-                    <button class='btn btn-conf btn-orange' v-on:click="clearAll" v-if="btnClearSeen">New search</button>
+            <!-- LOCATION ITINERARY -->
+            <div class="row">
+                <div class="col-sm-12" v-cloak v-if="locationItinerary">
+                    <div class="col-md-8">
+                        <iframe style = "width:100%; box-shadow:0 5px 5px #ccc" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2709.889264978834!2d-1.5559606843829143!3d47.218748979161035!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4805ef163d823c71%3A0x6a499fe2fe533ba1!2sMairie+Centrale+de+Nantes!5e0!3m2!1sfr!2sfr!4v1487255456433" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                Details
+                            </div>
+                            <div class="panel-body">
+                                <ul>
+                                    <li>
+                                        <strong>{{ locationItinerary.name }}</strong>
+                                    </li>
+                                    <li>
+                                        {{ locationItinerary.address }}
+                                    </li>
+                                    <li>
+                                        <span class="glyphicon glyphicon-calendar"></span> {{ locationItinerary.details.schedule }}
+                                    </li>
+                                    <li>
+                                        <span class="glyphicon glyphicon-phone-alt"></span> {{ locationItinerary.details.phone }}
+                                    </li>
+                                    <li>
+                                        <span class="glyphicon glyphicon-list"></span> {{ locationItinerary.details.text }}
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                Actions
+                            </div>
+                            <div class="panel-body">
+                                <ul>
+                                    <li>
+                                        <button class="btn btn btn"><span class="glyphicon glyphicon-phone-alt"></span> Phone to</button>
+                                    </li>
+                                    <br />
+                                    <li>
+                                        <button class="btn btn btn-success"><span class="glyphicon glyphicon-arrow-right"></span> Make an appointment</button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
+
+            <!-- CLEAR RESTART SEARCH -->
+            <div class="row">
+                <div class="col-sm-12 newSearch">
+                    <div class="text-center">
+                        <button class='btn btn-conf btn-orange' v-on:click="clearAll" v-if="btnClearSeen">New search</button>
+                    </div>
+                </div>
+            </div>
 
         </div>
     </div>
