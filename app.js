@@ -1,7 +1,7 @@
 new Vue({
 
     // We want to target the div with an id of 'events'
-    el: '#location',
+    el: '#main',
 
     // Here we can register any values or collections that hold data
     // for the application
@@ -9,8 +9,11 @@ new Vue({
         location: { text: '',name:'',address:'', description: '', details: '' },
         locations: [],
         event: { name: '', description: '', date: '' },
-        events: [],
-        posts:[]
+        posts:[],
+        searchSeen: true,
+        btnClearSeen: false,
+        locationsSeen: false,
+        detailsLocationId: false
     },
 
     // Anything within the ready function will run when the application loads
@@ -28,19 +31,31 @@ new Vue({
                     id: 1,
                     name: 'NANTES MARTYRS',
                     address: '16 boulevard des Martyrs Nantais de la Résistance (station TOTAL) 44000 NANTES',
-                    details: '2015-09-10'
+                    details: {
+                        schedule : 'Lundi 10h 17h',
+                        text: "lorem ipsum",
+                        phone: "02-97-00-00-00"
+                    }
                 },
                 {
                     id: 2,
                     name: 'CARQUEFOU ',
                     address: '24 ROUTE DE PARIS 44470 CARQUEFOU',
-                    details: '2015-10-02'
+                    details: {
+                        schedule : 'Lundi 10h 17h',
+                        text: "lorem ipsum",
+                        phone: "02-97-00-00-01"
+                    }
                 },
                 {
                     id: 3,
                     name: 'SAINT-HERBLAIN ',
                     address: '331 route de Vannes 44800 ST-HERBLAIN',
-                    details: '2016-03-11'
+                    details: {
+                        schedule : 'Lundi 10h 17h',
+                        text: "lorem ipsum",
+                        phone: "02-97-00-00-03"
+                    }
                 }
             ];
 
@@ -48,9 +63,8 @@ new Vue({
             this.locations = locations;
         },
 
-        //ajax call test
+        //Ajax call test
         getPosts: function() {
-            // ajax get County list
             this.$http.get('https://jsonplaceholder.typicode.com/posts').then(
                 function (response) {
                     this.posts = response.body;
@@ -60,16 +74,23 @@ new Vue({
                 });
         },
 
-        // Adds an event to the existing events array
         searchLocations: function() {
+            this.btnClearSeen = true,
+            this.searchSeen = false,
+            this.detailsLocationId = false;
+            this.locationsSeen = true;
             this.fetchLocations();
         },
 
-        deleteEvent: function(index) {
-            if(confirm("Are you sure you want to delete this event?")) {
-                // $remove is a Vue convenience method similar to splice
-                this.events.splice(index, 1);
-            }
-        }
+        clearAll: function() {
+            this.locations = [],
+            this.searchSeen = true,
+            this.detailsLocationId = false;
+            this.btnClearSeen = false;
+        },
+
+        getDetailsLocation: function(index) {
+            this.detailsLocationId = index
+        },
     }
 });

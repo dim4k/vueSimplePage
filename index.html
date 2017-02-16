@@ -2,89 +2,123 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Vue</title>
+    <title>FindAPlace</title>
 
     <!-- CSS -->
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link href="css/style.css" rel="stylesheet">
 </head>
+
 <body>
 
+<nav id="mainNav" class="navbar navbar-default navbar-fixed-top navbar-custom">
+    <div class="container">
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+            </button>
+            <div class="navbar-logo">CompanyLogo</div>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <!--<ul class="nav navbar-nav navbar-right">
+                <li class="page-scroll">
+                    <a href="#">Abouts</a>
+                </li>
+                <li class="page-scroll">
+                    <a href="#">Contact</a>
+                </li>
+            </ul>-->
+        </div>
+    </div>
+</nav>
+
 <!-- main body of our application -->
-<div class="container" id="location">
-
-    <div id="main">
-        <div class="logo">Company logo</div>
-        <div class="social hidden-xs">
-            <a href="#"><i class="ion-social-twitter"></i></a>
-            <a href="#"><i class="ion-social-instagram"></i></a>
-            <a href="#"><i class="ion-social-facebook"></i></a>
-        </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8 col-md-offset-2 centered">
-                    <h1>Find some place</h1>
-                    <div class="mtb">
-                        <div class="form-group col-md-8">
-                            <input class="form-control" placeholder="Enter a City or a ZipCode">
-                        </div>
-                        <div class="col-md-4">
-                            <button class='btn btn-conf btn-orange' v-on:click="searchLocations">Rechercher</button>
-                        </div>
-                    </div><!--/mt-->
-                </div>
-            </div><!--/row-->
-        </div><!--/container-->
-    </div><!-- /main -->
-
-    <!-- show the events -->
-    <div class="col-sm-12">
-        <div class="list-group">
-            <div class="list-group-item" v-bind:id="'detailModal' + index" v-for="(location, index) in locations">
-                <h4 class="list-group-item-heading">
-                    <i class="glyphicon glyphicon-home"></i>
-                    {{ location.name }}
-                </h4>
-
-                <h5>
-                    <i class="glyphicon glyphicon-list-alt" v-if="location.address"></i>
-                    {{ location.address }}
-                </h5>
-
-                <p class="list-group-item-text" v-if="event.description">{{ location.description }}</p>
-
-                <button type="button" class="btn btn-xs btn-info" data-toggle="modal" v-bind:data-target="'#detailModal' + index">Détails</button>
-
-                <button class="btn btn-xs btn-success" v-on:click="getInfoLocation(index)">S'y rendre</button>
-            </div>
-        </div>
-    </div>
-
-
-    <div class="modal fade" v-bind:id="'detailModal' + index" tabindex="-1" role="dialog" v-bind:aria-labelledby="'detailModal' + index +'Label'" v-for="(location, index) in locations" >
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Détails</h4>
-                </div>
-                <div class="modal-body">
-                    PLOP
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+<div id="main">
+    <div class="container">
+        <div class="row" v-if="searchSeen">
+            <div class="col-md-8 col-md-offset-2 centered">
+                <h1>Find a place</h1>
+                <div class="mtb">
+                    <div class="form-group col-md-8">
+                        <input class="form-control" placeholder="Enter a zip code or a city">
+                    </div>
+                    <div class="col-md-4">
+                        <button class='btn btn-conf btn-orange' v-on:click="searchLocations">Find !</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
+        <div class="col-sm-12" v-cloak v-if="locationsSeen">
+            <div class="list-group">
+                <div class="list-group-item" v-for="(location, index) in locations">
+                    <h4 class="list-group-item-heading">
+                        <strong>{{ location.name }}</strong>
+                    </h4>
+
+                    <h5>
+                        <i class="glyphicon glyphicon-home" v-if="location.address"></i>
+                        {{ location.address }}
+                    </h5>
+
+                    <p class="list-group-item-text" v-if="location.description">{{ location.description }}</p>
+
+                    <button class="btn btn-sm btn-info" v-on:click="getDetailsLocation(index)">Détails</button>
+
+                    <button class="btn btn-sm btn-success" v-on:click="searchLocations"><span class="glyphicon glyphicon-arrow-right"></span> Go !</button>
+                    <div class="list-group">
+                        <div class="list-group-item" v-if="detailsLocationId == index">
+                            <ul>
+                                <li>
+                                    <span class="glyphicon glyphicon-calendar"></span> {{ location.details.schedule }}
+                                </li>
+                                <li>
+                                    <span class="glyphicon glyphicon-phone-alt"></span> {{ location.details.phone }}
+                                </li>
+                                <li>
+                                    <span class="glyphicon glyphicon-list"></span> {{ location.details.text }}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="text-center">
+                    <button class='btn btn-conf btn-orange' v-on:click="clearAll" v-if="btnClearSeen">New search</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
 </div>
+
+
+<footer class="footer">
+    <div class="container">
+        <div class="col-md-3 ">
+            <a class="text-muted">■ Legal Notice</a>
+        </div>
+        <div class="col-md-3 ">
+            <a class="text-muted">■ Contact</a>
+        </div>
+        <div class="col-md-3 ">
+            <a class="text-muted">■ Partner website</a>
+        </div>
+        <div class="col-md-3 ">
+            <a class="text-muted">■ Company website</a>
+        </div>
+    </div>
+</footer>
 
 <!-- JS -->
 <script src="node_modules/vue/dist/vue.js"></script>
 <script src="node_modules/vue-resource/dist/vue-resource.js"></script>
 <script src="app.js"></script>
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 </body>
