@@ -214,7 +214,7 @@ a:focus {
 #main {
     /*background: url(../img/header.jpg) no-repeat center top;*/
     background:#eee;
-    padding-top: 180px;;
+    padding-top: 100px;;
     min-height: 300px;
     width: 100%;
     color: #333;
@@ -230,6 +230,11 @@ a:focus {
     background-size: cover;
 }
 
+@media (min-width: 768px) {
+    #main {
+        padding-top: 200px;;
+    }
+}
 .mtb .btn-conf{
     width:100%;
 }
