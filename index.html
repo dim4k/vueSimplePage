@@ -145,7 +145,8 @@
             <div class="row">
                 <div class="col-sm-12 newSearch">
                     <div class="text-center">
-                        <button class='btn btn-conf btn-orange' v-on:click="clearAll" v-if="btnClearSeen">New search</button>
+                        <button class='btn btn-conf btn-orange' v-on:click="searchLocations" v-if="btnReturnListSeen"><span class="glyphicon glyphicon-arrow-left"></span> Return to list</button>
+                        <button class='btn btn-conf btn-orange' v-on:click="clearAll" v-if="btnClearSeen"><span class="glyphicon glyphicon-search"></span> New search</button>
                     </div>
                 </div>
             </div>

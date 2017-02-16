@@ -12,6 +12,7 @@ new Vue({
         posts:[],
         searchSeen: true,
         btnClearSeen: false,
+        btnReturnListSeen: false,
         locationsListingSeen: false,
         locationItinerary : false,
         detailsLocationId: false
@@ -76,8 +77,9 @@ new Vue({
         },
 
         searchLocations: function() {
-            this.btnClearSeen = true,
-            this.searchSeen = false,
+            this.btnClearSeen = true;
+            this.btnReturnListSeen = false;
+            this.searchSeen = false;
             this.detailsLocationId = false;
             this.locationsListingSeen = true;
             this.locationItinerary = false;
@@ -86,10 +88,11 @@ new Vue({
         },
 
         clearAll: function() {
-            this.locations = [],
-            this.searchSeen = true,
+            this.locations = [];
+            this.searchSeen = true;
             this.detailsLocationId = false;
             this.btnClearSeen = false;
+            this.btnReturnListSeen = false;
             this.locationItinerary = false;
         },
 
@@ -98,8 +101,9 @@ new Vue({
         },
 
         goToLocation: function(locationItinerary) {
-            this.btnClearSeen = true,
-            this.searchSeen = false,
+            this.btnClearSeen = true;
+            this.btnReturnListSeen = true;
+            this.searchSeen = false;
             this.detailsLocationId = false;
             this.locationsListingSeen = false;
             this.locationItinerarySeen = true;
