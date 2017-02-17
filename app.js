@@ -12,6 +12,7 @@ new Vue({
         posts:[],
         searchSeen: true,
         btnClearSeen: false,
+        coordsGeoloc: false,
         btnReturnListSeen: false,
         locationsListingSeen: false,
         locationItinerary : false,
@@ -109,5 +110,19 @@ new Vue({
             this.locationItinerarySeen = true;
             this.locationItinerary = locationItinerary;
         },
+
+
+        showPosition: function(position) {
+            this.coordsGeoloc = "Latitude: " + position.coords.latitude + " - Longitude: " + position.coords.longitude;
+        },
+
+        getGeolocation: function(){
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(this.showPosition);
+            } else {
+                x.innerHTML = "Geolocation is not supported by this browser.";
+            }
+        },
+
     }
 });

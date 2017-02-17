@@ -33,7 +33,16 @@
                             <input class="form-control" placeholder="Enter a zip code or a city">
                         </div>
                         <div class="col-md-4">
-                            <button class='btn btn-conf btn-orange' v-on:click="searchLocations"><span class="glyphicon glyphicon-search"></span> Find !</button>
+                            <button class='btn btn-conf btn-orange findButton' v-on:click="searchLocations"><span class="glyphicon glyphicon-search"></span> Find !</button>
+                        </div>
+                        <div class="col-md-12">
+                            <h4>OR</h4>
+                        </div>
+                        <div class="col-md-12">
+                            <div text-centered>
+                                <button class='btn btn-conf btn-info geolocButton' v-on:click="getGeolocation"><span class="glyphicon glyphicon-pushpin"></span> Localize me</button>
+                            </div>
+                            <div v-if="coordsGeoloc"><strong>{{ coordsGeoloc }}</strong></div>
                         </div>
                     </div>
                 </div>
